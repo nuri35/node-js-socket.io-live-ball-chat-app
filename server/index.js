@@ -20,7 +20,7 @@ app.use(express.urlencoded({extended:true}))
 
 
 
-app.use('/blogs',blogRouter)
+app.use()
 
 
 

@@ -1,0 +1,3 @@
+export const CREATE_POST = "CREATE_POST"
+export const SEARCH_POSTS = "SEARCH_POSTS"
+export const FETCH_SINGLE_POST = "FETCH_SINGLE_POST "
