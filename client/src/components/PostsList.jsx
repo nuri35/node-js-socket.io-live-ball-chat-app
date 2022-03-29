@@ -1,40 +1,63 @@
 
-import { styled,alpha } from '@mui/material/styles';
-import Sidebar from './Sidebar';
 import React,{useState,useRef,useCallback,useContext,useEffect} from 'react'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import FeaturedPost from './FeaturedPost';
-import NoRresult from "./NoRresult"
-import MuiGrid from '@mui/material/Grid';
-import SimpleSnackbar from "./alert"
-import { useParams } from "react-router-dom";
-import axios from "axios"
-import {
-  Typography,
-  Button,
-  Toolbar,
-  IconButton,
-  Avatar,
-    Chip,
-    Badge,
-
-} from "@material-ui/core"
-import { searchPost } from '../actions/post';
-
-import { AuthContext } from "./Context";
-import Nav from "./Nav"
-import AuthenticatedNav from "./AuthenticatedNav"
-
+import io from "socket.io-client";
+import 'antd/dist/antd.css';
+import { message, Button, Space } from 'antd';
 import SearchIcon from '@mui/icons-material/Search';
+const socket = io.connect("http://localhost:5000");
+
+
+
+
+
+
+const PostsList =  ()=>{
+  const success = (data) => {
+    message.success(data);
+  };
+
+  const [username,setUsername] = useState("")
+  
+
+
+  const joinRoom = async () => {
+   await socket.emit("join_room", {name :username});
+      
+  
+  };
+
+  useEffect(() => {
+    socket.on("receiving_message",(data)=>{
+   
+      success(data)
+  })
+  
+   
+  }, [socket])
+  
 
   
-const PostsList =  ()=>{
 
 
-
+  
   return (
       
-   <div>Ana sayfa </div>
+    <div className="App">
+    
+      <div className="joinChatContainer">
+        <h3>Join A Chat</h3>
+        <input
+          type="text"
+          placeholder="John..."
+          onChange={(event) => {
+            setUsername(event.target.value);
+          }}
+        />
+       
+        <button onClick={joinRoom}>Join A Room</button>
+      </div>
+   
+  </div>
   
  
   );

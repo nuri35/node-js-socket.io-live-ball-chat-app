@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import {BrowserRouter as Router, Routes,Route,Navigate, BrowserRouter } from "react-router-dom"
 
 import { makeStyles } from '@material-ui/core/styles'
-import { io } from "socket.io-client";
+
 import {
     CssBaseline,
     Container,
@@ -41,11 +41,14 @@ import PageNotFound from "./components/PageNotFound"
     }
   }))
   
-  
-const socket  = io.connect("http://localhost:5000/")
+
+
+
+
 const App = () => {
 
-
+ 
+  
   const classes = useStyle();
 
     return (
@@ -63,7 +66,7 @@ const App = () => {
    
       <Routes>
      
-      <Route  path="/" element={<Ball />} />
+      <Route  path="/" element={<Ball  />} />
      
          
             <Route  path="*" element={<PageNotFound />} />
