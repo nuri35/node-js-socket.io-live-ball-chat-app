@@ -20,9 +20,9 @@ import {
 
 
 
-import Profile from "./components/Profile"
 
-import PostsList from "./components/PostsList"
+
+import Ball from "./components/PostsList"
 import PageNotFound from "./components/PageNotFound"
 
 
@@ -67,9 +67,8 @@ const App = () => {
    
       <Routes>
      
-      <Route  path="/" element={<PostsList />} />
-      <Route  path="/:tag" element={<PostsList />} />
-      <Route   path="verify"  element={<Profile/>}/>
+      <Route  path="/" element={<Ball />} />
+     
          
             <Route  path="*" element={<PageNotFound />} />
           

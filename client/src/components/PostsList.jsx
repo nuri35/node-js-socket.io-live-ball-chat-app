@@ -146,98 +146,13 @@ if(node) observer.current.observe(node)
     setPageNumber(1)
 
   
-   
-  
   }
 
   
 
-
-
-  const {user,ısAuthenticated,setUser,setIsAuthenticated} = useContext(AuthContext)
- 
   return (
       
-   
-    
-
-
-          <ThemeProvider theme={theme}>
-        
-           {ısAuthenticated ?
-            <AuthenticatedNav >
-
-</AuthenticatedNav>
-           
-            : 
-            <Nav  >
-           
-            </Nav>
-          
-          }
-            
-
-                <Toolbar>
-      <Search   >
-                      <SearchIconWrapper>
-                        <SearchIcon />
-                      </SearchIconWrapper>
-                      <StyledInputBase
-                         value={query}
-                     onChange={handleSearch}
-                  
-                        placeholder="Search…"
-                        inputProps={{ 'aria-label': 'search' }}
-                      />
-                    </Search>
-                    </Toolbar> 
-
-          
-    <div className="home">
-
-    
-     
-        
-          <Grid    columns={{ xs: 4, sm: 8, md: 10 }} >
-          
-          
-        {
-        blogs.length > 0 &&
-        
-        blogs.map((post,index) => {
-          
-      return blogs.length === index + 1  ?
-        <FeaturedPost  inputRef={lastBlogElementRef} loading={loading} post={post}  />
-        // ref={lastBlogElementRef}   
-    :
-    <FeaturedPost   post={post}  />
-
-        })
-       
-     
-        }
-      
-
-      {blogs.length == 0 &&
-
-    <NoRresult />
-              
-              }
-
-    </Grid>
-  
-    <Sidebar
-          title={sidebar.title}
-          description={sidebar.description}      
-      tags={sidebar.tags}
-    
-   
-            />   
-
-
-</div>
-
-    </ThemeProvider>
+   <div>Ana sayfa </div>
   
  
   );
