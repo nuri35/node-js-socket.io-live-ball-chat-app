@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended:true}))
 const io = new Server(server,{
 
     cors:{
-        origin:"http://localhost:3000",
+        origin:process.env.REACT_APP_URI,
         credentials:true,
         methods: ["GET","POST","PUT",]
     }
@@ -33,10 +33,21 @@ const io = new Server(server,{
 
 
 io.on('connection', (socket) => {
-    console.log('a user connected' + socket.id);
+  
 
-    socket.on("disconnect",()=>{
+    socket.on("join_room", (arg, callback) => {
+        console.log(arg.name + "joined room"); // "world"
+     
+       socket.broadcast.emit("receiving_message", `${arg.name} joined room`);
+      });
+
+
+
+
+    socket.on("disconnect",(arg,callback)=>{
         console.log("user disconnect" + socket.id)
+       
+
     })
 
   });
