@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import {BrowserRouter as Router, Routes,Route,Navigate, BrowserRouter } from "react-router-dom"
 
 import { makeStyles } from '@material-ui/core/styles'
-
+import { io } from "socket.io-client";
 import {
     CssBaseline,
     Container,
@@ -17,10 +17,6 @@ import {
     Chip,
     Badge,
 } from "@material-ui/core"
-
-
-
-
 
 import Ball from "./components/PostsList"
 import PageNotFound from "./components/PageNotFound"
@@ -46,7 +42,7 @@ import PageNotFound from "./components/PageNotFound"
   }))
   
   
-
+const socket  = io.connect("http://localhost:5000/")
 const App = () => {
 
 
