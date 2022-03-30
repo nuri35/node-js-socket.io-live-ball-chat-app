@@ -3,11 +3,15 @@ import React,{useState,useRef,useCallback,useContext,useEffect} from 'react'
 import io from "socket.io-client";
 import 'antd/dist/antd.css';
 import { message, Button, Space } from 'antd';
-
-const socket = io.connect("http://localhost:5000"); //global namespace
 import Chat from "./Chat"
 
 
+
+
+const socket = io.connect("http://localhost:5000",{
+  reconnectionAttempts : 2,
+  reconnectionDelayMax: 10000,
+}); //global namespace
 
 
 
@@ -21,6 +25,7 @@ const Room =  ()=>{
   const [showChat, setShowChat] = useState(false);
   const [currentUser,setCurrentUser] = useState([])
 
+
   const joinRoom = async () => {
       let datas = {
         name :username,
@@ -33,6 +38,8 @@ const Room =  ()=>{
  
   };
 
+ 
+
   useEffect(() => {
     socket.on("receiving_message",(data)=>{
    
@@ -44,8 +51,11 @@ const Room =  ()=>{
    
     setCurrentUser((list) => [...list, data.name])
 })
-  
 
+socket.on("reconnect_attempt",()=>{
+  success("try Connect again")
+ 
+})
 
    
   }, [socket])

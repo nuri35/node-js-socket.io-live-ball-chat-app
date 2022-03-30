@@ -42,16 +42,17 @@ const io = new Server(serverApp,{
 
 
 io.on('connection', (socket) => {
+    console.log("socketId " + socket.id)
   
-    socket.on("join_room", (arg, callback) => {
+    socket.on("join_room", async(arg, callback) => {
         console.log(arg.name + "joined room"); 
 
-        socket.join(arg.roomId);
-      
+       await socket.join(arg.roomId)
+       
     socket.broadcast.emit("receiving_messageUser", arg); 
     socket.to(arg.roomId).emit("receiving_message", arg);
   
-        // socket.emit("receiving_messageUser", arg)
+
       
       });
 
