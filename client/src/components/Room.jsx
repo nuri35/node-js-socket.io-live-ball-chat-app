@@ -3,10 +3,10 @@ import React,{useState,useRef,useCallback,useContext,useEffect} from 'react'
 import io from "socket.io-client";
 import 'antd/dist/antd.css';
 import { message, Button, Space } from 'antd';
-import SearchIcon from '@mui/icons-material/Search';
+
 const socket = io.connect("http://localhost:5000"); //global namespace
 import Chat from "./Chat"
-import "./../index.css";
+
 
 
 
