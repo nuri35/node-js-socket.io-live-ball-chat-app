@@ -22,9 +22,15 @@ const Room =  ()=>{
   const [currentUser,setCurrentUser] = useState([])
 
   const joinRoom = async () => {
-   await socket.emit("join_room", {name :username,roomId:room});
+      let datas = {
+        name :username,
+        roomId:room
+      }
+   await socket.emit("join_room", datas);
+   setCurrentUser((list) => [...list, datas.name])
    setShowChat(true);
-
+  
+ 
   };
 
   useEffect(() => {
@@ -74,7 +80,7 @@ const Room =  ()=>{
           <button onClick={joinRoom}>Join A Room</button>
         </div>
       ) : (
-        <Chat socket={socket} currentUser={currentUser} username={username} room={room} setShowChat={setShowChat} showChat={showChat}/>
+        <Chat socket={socket} setCurrentUser={setCurrentUser} currentUser={currentUser} username={username} room={room} setShowChat={setShowChat} showChat={showChat}/>
       
         
       )}

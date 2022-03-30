@@ -3,7 +3,7 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import { message, Button, Space } from 'antd';
 
 
-function Chat({ socket, username, room,setShowChat,showChat,currentUser }) {
+function Chat({ socket, username, room,setShowChat,showChat,currentUser,setCurrentUser }) {
  
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
@@ -30,7 +30,7 @@ function Chat({ socket, username, room,setShowChat,showChat,currentUser }) {
       };
 
       await socket.emit("send_message", messageData);
-    
+      setMessageList((list) => [...list, messageData]);
       setCurrentMessage("");
     }
   };
@@ -44,6 +44,7 @@ function Chat({ socket, username, room,setShowChat,showChat,currentUser }) {
    
     await socket.emit("leave_room", leaveRoomInfo);
     setShowChat(!showChat)
+   
   };
 
 
@@ -56,19 +57,27 @@ function Chat({ socket, username, room,setShowChat,showChat,currentUser }) {
     socket.on("leave_user", (username) => {
       success(`${username} has left the room`)
      
+      setCurrentUser(currentUser)
+     
     });
 
-  }, [socket]);
+  }, []);
 
   return (
 
     <div className="chat-window">
-    <div className="chat-header">
-    {currentUser.map((userList) => {
+    
+    <div className="col-md-4">
+    <h3>Users</h3>
+    <ul id="users">
+    {currentUser.length == 0 ?  <p>Şuan kullanıcı yok </p> : currentUser.map((userList) => {
           return (
-            <p>Aktif kişiler : {userList}</p>
+            <li >{userList}</li>
           );
         })}
+          
+          </ul>
+    
     
     </div>
     
