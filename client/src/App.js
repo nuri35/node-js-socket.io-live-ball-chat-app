@@ -18,7 +18,7 @@ import {
     Badge,
 } from "@material-ui/core"
 
-import Ball from "./components/PostsList"
+import Room from "./components/Room"
 import PageNotFound from "./components/PageNotFound"
 
 
@@ -66,7 +66,7 @@ const App = () => {
    
       <Routes>
      
-      <Route  path="/" element={<Ball  />} />
+      <Route  path="/" element={<Room  />} />
      
          
             <Route  path="*" element={<PageNotFound />} />
