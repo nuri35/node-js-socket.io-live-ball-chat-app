@@ -4,7 +4,7 @@ const app = express()
 const bodyParser = require("body-parser")
 const cors = require("cors")
 const { Server } = require("socket.io");
-
+const { createClient } = require('redis')
 require('dotenv').config();
 const cookieParser = require('cookie-parser')
 
@@ -19,7 +19,50 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 
-//redis example
+//redis simple example
+
+const redisSet = async ()=>{
+
+  const client = createClient();
+
+  client.on('error', (err) => console.log('Redis Client Error', err));
+
+
+  await client.connect();
+  
+
+  await client.set('name', 'nurettin');
+client.set("name",)
+  const value = await client.get('name');
+
+console.log(value)
+
+//del
+let delVal = await client.del('name');
+console.log(delVal)
+const valueDel = await client.get('name');
+
+console.log(valueDel)
+
+const numAdded = await client.zAdd('vehicles', [
+  {
+    score: 4,
+    value: 'car'
+  },
+  {
+    score: 2,
+    value: 'bike'
+  }
+]);
+
+
+  for await (const { score, value } of client.zScanIterator('vehicles')) {
+      console.log(`${value} -> ${score}`);
+
+    }
+
+}
+redisSet()
 
 
 
@@ -28,7 +71,7 @@ const serverApp = app.listen(process.env.PORT,()=>{
     console.log("bu port dınlenıyor: " + process.env.PORT)
 })
 
-
+// socket exmample
 const io = new Server(serverApp,{
 
     cors:{
