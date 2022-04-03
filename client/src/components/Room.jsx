@@ -8,7 +8,7 @@ import Chat from "./Chat"
 
 
 
-const socket = io.connect("http://localhost:5000",{
+const socket = io.connect("http://localhost:5000/",{
   reconnectionAttempts : 2,
   reconnectionDelayMax: 10000,
 }); //global namespace
@@ -56,6 +56,14 @@ socket.on("reconnect_attempt",()=>{
   success("try Connect again")
  
 })
+
+  
+socket.on("disUser",(data)=>{
+ console.log(data)
+ success(data + " adlı kişi disconnected")
+ 
+})
+
 
    
   }, [socket])

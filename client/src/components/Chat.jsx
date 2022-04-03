@@ -8,7 +8,8 @@ function Chat({ socket, username, room,setShowChat,showChat,currentUser,setCurre
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
  
-
+  const [typing,setTyping] = useState(false)
+const [state,setState]= useState("")
 
   const success = (data) => {
     message.success(data);
@@ -54,19 +55,27 @@ function Chat({ socket, username, room,setShowChat,showChat,currentUser,setCurre
       setMessageList((list) => [...list, data]);
     });
 
+    socket.on("tping__user", (data) => {
+     
+      setState(data.message)
+    });
+
     socket.on("leave_user", (username) => {
       success(`${username} has left the room`)
      
-      setCurrentUser(currentUser)
      
-    });
+      setCurrentUser(
+        currentUser.filter((user) => username !== user)
+      )
 
+    });
+    
   }, []);
 
   return (
 
     <div className="chat-window">
-    
+      {state}
     <div className="col-md-4">
     <h3>Users</h3>
     <ul id="users">
@@ -117,6 +126,20 @@ function Chat({ socket, username, room,setShowChat,showChat,currentUser,setCurre
         onKeyPress={(event) => {
           event.key === "Enter" && sendMessage();
         }}
+
+        onKeyDown={(event) => {
+          setTyping(true)
+           socket.emit("typing", typing);
+         
+        }}
+
+        onKeyUp={(event) => {
+          setTyping(false)
+           socket.emit("typing", typing);
+         
+        }}
+        
+      
       />
       <button onClick={sendMessage}>&#9658;</button>
       <button onClick={leaveRoom}>&#9660;</button>

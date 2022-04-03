@@ -19,6 +19,7 @@ import {
 } from "@material-ui/core"
 
 import Room from "./components/Room"
+import Ticket from "./components/Ticket"
 import PageNotFound from "./components/PageNotFound"
 
 
@@ -67,7 +68,7 @@ const App = () => {
       <Routes>
      
       <Route  path="/" element={<Room  />} />
-     
+      <Route  path="/Ticket" element={<Ticket  />} />
          
             <Route  path="*" element={<PageNotFound />} />
           
