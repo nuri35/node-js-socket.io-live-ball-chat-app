@@ -19,7 +19,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 
-
+//redis example
 
 
 
@@ -40,6 +40,9 @@ const io = new Server(serverApp,{
 
 });
 
+let info =  {
+
+}
 
 io.on('connection', (socket) => {
     console.log("socketId " + socket.id)
@@ -50,12 +53,12 @@ io.on('connection', (socket) => {
        await socket.join(arg.roomId)
        
     socket.broadcast.emit("receiving_messageUser", arg); 
+
     socket.to(arg.roomId).emit("receiving_message", arg);
   
 
       
       });
-
 
       socket.on("send_message", (data) => {
         socket.to(data.room).emit("receive_senderMessage", data);
@@ -67,15 +70,44 @@ io.on('connection', (socket) => {
         socket.to(data.room).emit("leave_user",data.author);
       });
 
+      socket.on("typing", (state) => {
+        
+        if(state){
+          info.message = "Typing user"
+        }else{
+          info.message = "not Typing  user"
+        }
+        socket.broadcast.emit("tping__user", info);
+     
+      });
 
+     
 
     socket.on("disconnect",(arg,callback)=>{
         console.log("user disconnect" + socket.id)
-       
+        socket.broadcast.emit("disUser", socket.id);
 
     })
 
   });
 
+  io.of("/ticket").on("connection",(socket)=>{
+    console.log("socketId sport kok dizine baglandı " + socket.id)
+
+    
+
+    socket.on("disconnect",(arg,callback)=>{
+
+      console.log("user disconnect" + socket.id)
+     
+      
+    
+  })
+
+  })
+  
+
+
+  
 
 module.exports = serverApp
