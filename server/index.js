@@ -32,26 +32,33 @@ const redisSet = async ()=>{
   
 
   await client.set('name', 'nurettin');
-client.set("name",)
+
   const value = await client.get('name');
 
-console.log(value)
+
 
 //del
 let delVal = await client.del('name');
 console.log(delVal)
-const valueDel = await client.get('name');
 
-console.log(valueDel)
+//list
+const list = await client.lPush("ders","redis")
+
 
 const numAdded = await client.zAdd('vehicles', [
   {
-    score: 4,
-    value: 'car'
+    score: 1,
+    value: "car"
   },
   {
     score: 2,
     value: 'bike'
+  }
+  ,
+  {
+    score: 5,
+    value: 'telfon'
+
   }
 ]);
 
@@ -61,8 +68,25 @@ const numAdded = await client.zAdd('vehicles', [
 
     }
 
+    //sadd örnek
+
+    await client.sAdd("yazılım",["kafka","redis","rabbitmq","nodejs"])
+
+
+    await client.hSet("reveserId:1111",3333,
+
+      {
+        nameUser: "ahmet",
+        senderId: 22,
+        messagem:"selamlar"
+      },
+       )
+
+
 }
 redisSet()
+
+
 
 
 
